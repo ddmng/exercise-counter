@@ -24,6 +24,8 @@ function doCount () {
         serial.writeLine(status)
         basic.showString("" + (contatore % 10))
         music.playTone(988, music.beat(BeatFraction.Whole))
+        serial.writeLine("" + (contatore))
+        bluetooth.uartWriteNumber(contatore)
         if (status == "STOP_COUNTING") {
             doStopCount()
             return 1
@@ -36,6 +38,7 @@ function doCount () {
     music.playMelody("C D E F G A B C5 ", 1200)
     music.playMelody("C D E F G A B C5 ", 1200)
     music.playMelody("C D E F G A B C5 ", 1200)
+    status = "INIT"
     return 0
 }
 input.onButtonPressed(Button.AB, function () {
@@ -51,6 +54,7 @@ music.setVolume(47)
 music.setTempo(1200)
 status = "INIT"
 MAX_COUNT = 29
+bluetooth.startUartService()
 basic.forever(function () {
     serial.writeLine(status)
     if (status == "INIT") {
@@ -59,8 +63,7 @@ basic.forever(function () {
     } else if (status == "DO_COUNT") {
         doCount()
     } else if (status == "COUNTING") {
-        let contatore = 0
-        serial.writeLine("" + (contatore))
+    	
     } else if (status == "STOP_COUNTING") {
         status = "INIT"
     }
