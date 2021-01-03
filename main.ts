@@ -3,10 +3,14 @@ function doStopCount () {
     music.playMelody("C5 B A G F E D C ", 1200)
     status = "INIT"
 }
+input.onLogoEvent(TouchButtonEvent.LongPressed, function () {
+    serial.writeLine("LOGO_LONG")
+})
 input.onButtonPressed(Button.A, function () {
     if (status != "COUNTING") {
         status = "DO_COUNT"
     }
+    serial.writeLine("BUT_A")
 })
 function doCount () {
     status = "COUNTING"
@@ -31,9 +35,14 @@ function doCount () {
 }
 input.onButtonPressed(Button.AB, function () {
     status = "PAUSE_COUNTING"
+    serial.writeLine("BUT_AB")
 })
 input.onButtonPressed(Button.B, function () {
     status = "STOP_COUNTING"
+    serial.writeLine("BUT_B")
+})
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    serial.writeLine("LOGO_PRESS")
 })
 let MAX_COUNT = 0
 let status = ""
