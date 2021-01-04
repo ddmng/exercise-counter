@@ -10,7 +10,7 @@ input.onButtonPressed(Button.A, function () {
     if (status != "COUNTING") {
         status = "DO_COUNT"
     }
-    serial.writeLine("BUT_A")
+    serial.writeLine("BTN_A")
 })
 function doCount () {
     status = "COUNTING"
@@ -35,11 +35,11 @@ function doCount () {
 }
 input.onButtonPressed(Button.AB, function () {
     status = "PAUSE_COUNTING"
-    serial.writeLine("BUT_AB")
+    serial.writeLine("BTN_AB")
 })
 input.onButtonPressed(Button.B, function () {
     status = "STOP_COUNTING"
-    serial.writeLine("BUT_B")
+    serial.writeLine("BTN_B")
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     serial.writeLine("LOGO_PRESS")
@@ -65,7 +65,13 @@ basic.forever(function () {
 })
 control.inBackground(function () {
     while (true) {
-        serial.writeLine("" + input.temperature() + "," + input.lightLevel())
-        basic.pause(2000)
+        serial.writeLine("MOVEMENT" + "," + input.rotation(Rotation.Pitch) + "," + input.rotation(Rotation.Roll) + "," + input.acceleration(Dimension.X) + "," + input.acceleration(Dimension.Y) + "," + input.acceleration(Dimension.Z))
+        basic.pause(10)
+    }
+})
+control.inBackground(function () {
+    while (true) {
+        serial.writeLine("TEMP" + "," + input.temperature() + "," + input.lightLevel())
+        basic.pause(5000)
     }
 })
