@@ -65,8 +65,8 @@ basic.forever(function () {
 })
 control.inBackground(function () {
     while (true) {
-        serial.writeLine("MOVEMENT" + "," + input.rotation(Rotation.Pitch) + "," + input.rotation(Rotation.Roll) + "," + input.acceleration(Dimension.X) + "," + input.acceleration(Dimension.Y) + "," + input.acceleration(Dimension.Z))
-        basic.pause(10)
+        serial.writeLine("MOVEMENT" + "," + input.rotation(Rotation.Pitch) + "," + input.rotation(Rotation.Roll) + "," + input.acceleration(Dimension.X) + "," + input.acceleration(Dimension.Y) + "," + input.acceleration(Dimension.Z) + "," + input.acceleration(Dimension.Strength) + "," + input.magneticForce(Dimension.X) + "," + input.magneticForce(Dimension.Y) + "," + input.magneticForce(Dimension.Z) + "," + input.magneticForce(Dimension.Strength))
+        basic.pause(50)
     }
 })
 control.inBackground(function () {
